@@ -423,106 +423,191 @@
   @media (max-width: 600px){
     .projects-grid{ grid-template-columns: 1fr; }
   }
-  /* ---------- Registry entries — professional cards ---------- */
+  /* ---------- Cartes « Travaux & systèmes » — structure professionnelle ---------- */
   .entry{
     display:flex;
     flex-direction: column;
-    padding: 22px 22px;
-    margin-bottom: 0;
+    overflow:hidden;
     background: var(--paper-deep);
     border: 1px solid var(--card-border);
-    border-left: 4px solid var(--stamp);
-    border-radius: 12px;
-    box-shadow: 0 1px 2px rgba(19,46,79,0.04);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(19,46,79,0.05);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
   }
-  .entry > div{ display:flex; flex-direction: column; flex: 1; }
-  .entry-desc{ flex: 1; }
   .entry:hover{
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     box-shadow: var(--card-shadow);
-    border-left-color: var(--stamp);
+  }
+
+  /* ligne d'en-tête : numéro · domaine · statut */
+  .entry-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 18px;
+    border-bottom:1px solid var(--card-border);
+    font-family: var(--font-sans);
   }
   .entry-num{
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: #FFFFFF;
-    background: #000000;
-    border-radius: 8px;
-    padding: 6px 12px;
-    align-self: flex-start;
-    margin-bottom: 14px;
-    transition: background 0.2s ease;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color: var(--gold);
+    background: color-mix(in srgb, var(--gold) 10%, transparent);
+    border:1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+    border-radius:6px;
+    padding:3px 8px;
+    white-space:nowrap;
   }
-  .entry:hover .entry-num{ background: var(--stamp); color: #fff; }
-  
+  .entry-domain{
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color: var(--ink-soft);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
   .entry-title{
     font-family: var(--font-serif);
     font-weight: 600;
-    font-size: 1.24rem;
-    margin: 0 0 6px;
+    font-size: 1.2rem;
+    line-height:1.25;
+    margin: 0 0 8px;
     color: var(--navy);
   }
   :root[data-theme="dark"] .entry-title{ color: var(--ink); }
-  .entry-stack{
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 12.5px;
-    color: var(--stamp);
-    background: var(--blue-soft);
-    border-radius: 6px;
-    padding: 4px 10px;
-    margin: 0 0 12px;
+
+  /* corps de carte : poussé vers le bas pour aligner les actions */
+  .entry-body{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    padding:16px 18px 18px;
   }
   .entry-desc{
-    margin: 0 0 10px;
-    font-size: 0.98rem;
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+    line-height:1.6;
     max-width: 62ch;
   }
-  .entry-status{
-    display:inline-block;
+
+  /* pile technologique : pastilles individualisées */
+  .entry-stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    list-style:none;
+    padding:0;
+    margin:0 0 16px;
     font-family: var(--font-sans);
+  }
+  .entry-stack li{
     font-weight: 600;
-    font-size: 12px;
+    font-size: 11.5px;
     letter-spacing: 0.02em;
     color: var(--stamp);
-    background: color-mix(in srgb, var(--stamp) 8%, var(--paper-deep));
-    border: 1px solid color-mix(in srgb, var(--stamp) 25%, transparent);
-    padding: 5px 12px;
-    border-radius: 999px;
+    background: var(--blue-soft);
+    border:1px solid color-mix(in srgb, var(--stamp) 12%, transparent);
+    border-radius: 6px;
+    padding: 4px 9px;
   }
-  .entry-link{
-    margin-left: 10px;
-    font-size: 12.5px;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  /* statut : pastille calée à droite de l'en-tête, avec point de couleur */
+  .entry-status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-left:auto;
+    font-family: var(--font-sans);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:4px 10px;
+    border-radius:999px;
+    border:1px solid transparent;
+    white-space:nowrap;
   }
-  .entry-shot{
-    border: 1px solid var(--card-border);
-    background: linear-gradient(135deg, var(--blue-soft) 0%, color-mix(in srgb, var(--blue-soft) 55%, var(--paper-deep)) 100%);
-    border-radius: 10px;
-    height: 140px;
+  .entry-status::before{
+    content:"";
+    width:6px; height:6px; border-radius:50%;
+    background:currentColor;
+  }
+  .st-live{ color:#157F3D; background:rgba(21,127,61,0.10); border-color:rgba(21,127,61,0.30); }
+  .st-dev{ color:var(--gold); background:color-mix(in srgb, var(--gold) 10%, transparent); border-color:color-mix(in srgb, var(--gold) 35%, transparent); }
+  .st-research{ color:#1D4ED8; background:rgba(29,78,216,0.10); border-color:rgba(29,78,216,0.28); }
+  .st-rebuild{ color:#B45309; background:rgba(180,83,9,0.10); border-color:rgba(180,83,9,0.30); }
+
+  /* actions : boutons alignés en bas de carte */
+  .entry-actions{
     display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:auto;
+    padding-top:2px;
+  }
+  .entry-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--font-sans);
+    font-weight:600;
+    font-size:12.5px;
+    padding:9px 14px;
+    border-radius:8px;
+    text-decoration:none;
+    background: var(--gold);
+    color:#FFFFFF;
+    border:1px solid var(--gold);
+    transition: filter 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+  .entry-cta:hover{ filter:brightness(1.1); }
+  .entry-cta.is-ghost{
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--card-border);
+  }
+  .entry-cta.is-ghost:hover{ border-color: var(--gold); color: var(--gold); filter:none; }
+  /* visuel de carte : capture réelle (img) ou monogramme d'attente */
+  .entry-shot{
+    display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content:center;
-    margin-bottom: 16px;
+    gap:9px;
+    height:150px;
+    padding:14px;
+    border-bottom:1px solid var(--card-border);
+    background: linear-gradient(135deg, var(--blue-soft) 0%, color-mix(in srgb, var(--blue-soft) 55%, var(--paper-deep)) 100%);
+    overflow:hidden;
+  }
+  .entry-mark{
+    font-family: var(--font-serif);
+    font-weight:600;
+    font-size:2.1rem;
+    letter-spacing:0.14em;
+    line-height:1;
+    color: var(--navy);
+    opacity:0.92;
+  }
+  .entry-mark-note{
     font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    font-weight:600;
+    font-size:10px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
     color: var(--ink-soft);
-    text-align: center;
+    opacity:0.75;
   }
 
   /* ---------- Aperçu live des sites hébergés ---------- */
   .entry-embed{
-    margin-bottom: 16px;
-    border: 1px solid rgba(233,236,243,0.16);
-    border-radius: 10px;
+    margin:0;
+    border:0;
+    border-bottom:1px solid var(--card-border);
+    border-radius:0;
     overflow: hidden;
     background: #FFFFFF;
   }
@@ -699,46 +784,57 @@
     display:block;
     width:100%;
     height:100%;
+    flex:1;
+    min-height:0;
     object-fit:cover;
     object-position:top center;
   }
 
-  /* ---------- Cards Travaux & systèmes — restyles sur fond bleu de nuit ---------- */
+  /* ---------- Cartes « Travaux & systèmes » — restyles sur fond bleu de nuit ---------- */
   #projets .entry{
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(233,236,243,0.14);
-    border-left: 4px solid #D1B46A;
     box-shadow: 0 10px 24px rgba(0,0,0,0.28);
   }
   #projets .entry:hover{
     background: rgba(255,255,255,0.10);
     border-color: rgba(233,236,243,0.30);
-    border-left-color: #D1B46A;
     box-shadow: 0 14px 32px rgba(0,0,0,0.38);
   }
+  #projets .entry-head{ border-bottom-color: rgba(233,236,243,0.14); }
   #projets .entry-num{
-    background: #D1B46A;
-    color: #0A1224;
-  }
-  #projets .entry:hover .entry-num{ background: #FFFFFF; color: #0A1224; }
-  #projets .entry-title{ color: #FFFFFF; }
-  #projets .entry-stack{
-    color: #BBD4F2;
-    background: rgba(106,166,232,0.16);
-  }
-  #projets .entry-desc{ color: rgba(233,236,243,0.82); }
-  #projets .entry-status{
-    color: #D1B46A;
+    color:#D1B46A;
     background: rgba(209,180,106,0.12);
-    border-color: rgba(209,180,106,0.35);
+    border-color: rgba(209,180,106,0.40);
   }
-  #projets .entry-link{ color: #FFFFFF; }
+  #projets .entry-domain{ color: rgba(233,236,243,0.62); }
+  #projets .entry-title{ color:#FFFFFF; }
+  #projets .entry-desc{ color: rgba(233,236,243,0.82); }
+  #projets .entry-stack li{
+    color:#BBD4F2;
+    background: rgba(106,166,232,0.16);
+    border-color: rgba(106,166,232,0.28);
+  }
+  #projets .st-live{ color:#4ADE80; background:rgba(74,222,128,0.12); border-color:rgba(74,222,128,0.35); }
+  #projets .st-dev{ color:#E7C86E; background:rgba(209,180,106,0.12); border-color:rgba(209,180,106,0.38); }
+  #projets .st-research{ color:#7FB3FF; background:rgba(106,166,232,0.14); border-color:rgba(106,166,232,0.35); }
+  #projets .st-rebuild{ color:#F0A56A; background:rgba(240,165,106,0.12); border-color:rgba(240,165,106,0.35); }
   #projets .entry-shot{
     background: linear-gradient(135deg, rgba(106,166,232,0.18) 0%, rgba(209,180,106,0.12) 100%);
-    border-color: rgba(233,236,243,0.16);
+    border-bottom-color: rgba(233,236,243,0.16);
     color: rgba(233,236,243,0.65);
   }
-
+  #projets .entry-mark{ color:#FFFFFF; }
+  #projets .entry-mark-note{ color: rgba(233,236,243,0.60); }
+  #projets .entry-embed{ border-bottom-color: rgba(233,236,243,0.16); }
+  #projets .entry-cta{ background:#D1B46A; color:#0A1224; border-color:#D1B46A; }
+  #projets .entry-cta:hover{ background:#E5CE8B; filter:none; }
+  #projets .entry-cta.is-ghost{
+    background: rgba(255,255,255,0.06);
+    color:#FFFFFF;
+    border-color: rgba(233,236,243,0.30);
+  }
+  #projets .entry-cta.is-ghost:hover{ border-color:#D1B46A; color:#D1B46A; }
   ::selection{ background: var(--navy); color: #fff; }
 </style>
 </head>
@@ -856,136 +952,272 @@
     <p class="section-note">Systèmes conçus et déployés pour des institutions et écoles du Kongo-Central — sélection représentative.</p>
 
     <div class="projects-grid">
-    <div class="entry">
-      <div class="entry-num">N° 01</div>
-      <div>
-        <div class="entry-shot">Illustration — visuel à venir</div>
-        <h3 class="entry-title">VoteSup &amp; MBONGI YA KONGO</h3>
-        <p class="entry-stack">Node.js · Express · EJS · Google Sheets API</p>
-        <p class="entry-desc">Plateforme de vote et de sondage pour élections en milieu universitaire (portails électeurs, gestion des candidats, automatisation du cycle électoral), couplée à un système d'inscription des participants avec codes uniques (MBYK-2026-XXXX).</p>
-        <span class="entry-status">Déployé — Render</span>
-      </div>
-    </div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 01</span>
+          <span class="entry-domain">Élections</span>
+          <span class="entry-status st-live">En ligne</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">VS</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">VoteSup &amp; VES</h3>
+          <p class="entry-desc">Deux plateformes de vote électronique conçues pour les élections. VoteSup : vote et sondage en milieu universitaire — portails électeurs, gestion des candidats, automatisation du cycle électoral, données suivies dans Google Sheets. VES : scrutin sécurisé à un ou deux tours, vérification des électeurs par e-mail, résultats tracés et audit complet, en interface web et client de bureau.</p>
+          <ul class="entry-stack">
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>EJS</li>
+            <li>Django</li>
+            <li>REST Framework</li>
+            <li>React</li>
+            <li>Electron</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://ves-mg2a.onrender.com" target="_blank" rel="noopener">Voir le site ↗</a>
+            <a class="entry-cta is-ghost" href="https://github.com/Sha-703/VES" target="_blank" rel="noopener">Code source</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 02</div>
-      <div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 02</span>
+          <span class="entry-domain">Inscriptions</span>
+          <span class="entry-status st-live">En ligne</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">MB</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">MBONGI YA KONGO</h3>
+          <p class="entry-desc">Système d'inscription des participants avec génération de codes uniques (MBYK-2026-XXXX), suivi des inscriptions en temps réel et export des données vers Google Sheets.</p>
+          <ul class="entry-stack">
+            <li>HTML / CSS</li>
+            <li>JavaScript</li>
+            <li>Google Apps Script</li>
+            <li>Google Sheets API</li>
+            <li>Vercel</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://mbongi-beta.vercel.app" target="_blank" rel="noopener">Voir le site ↗</a>
+            <a class="entry-cta is-ghost" href="https://github.com/Sha-703/mbongi" target="_blank" rel="noopener">Code source</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 03</span>
+          <span class="entry-domain">SaaS</span>
+          <span class="entry-status st-dev">Développement</span>
+        </div>
         <div class="entry-embed">
           <div class="embed-bar">
             <span>Aperçu en direct</span>
-            <a href="https://chuchapp-frontend-production.up.railway.app/" target="_blank" rel="noopener">Ouvrir ↗</a>
           </div>
           <div class="embed-frame">
             <iframe src="https://chuchapp-frontend-production.up.railway.app/" title="ChurchApp — aperçu en direct" loading="lazy"></iframe>
             <button class="embed-gate" type="button">Cliquez pour interagir</button>
           </div>
         </div>
-        <h3 class="entry-title">ChurchApp</h3>
-        <p class="entry-stack">Node.js · Express · Sequelize · React · Vite</p>
-        <p class="entry-desc">SaaS multi-tenant de gestion d'églises : finances avec rapports PDF, présences au culte, courrier inter-églises, ressources humaines, planification trimestrielle, espace communauté. Le module le plus abouti du portfolio.</p>
-        <span class="entry-status">En développement actif</span>
-        <a class="entry-link" href="https://chuchapp-frontend-production.up.railway.app/" target="_blank" rel="noopener">chuchapp-frontend-production.up.railway.app</a>
-      </div>
-    </div>
+        <div class="entry-body">
+          <h3 class="entry-title">ChurchApp</h3>
+          <p class="entry-desc">SaaS multi-tenant de gestion d'églises : finances avec rapports PDF, présences au culte, courrier inter-églises, ressources humaines, planification trimestrielle, espace communautaire. Le module le plus abouti du portfolio.</p>
+          <ul class="entry-stack">
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>Sequelize</li>
+            <li>React</li>
+            <li>Vite</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://chuchapp-frontend-production.up.railway.app/" target="_blank" rel="noopener">Voir le site ↗</a>
+            <a class="entry-cta is-ghost" href="https://github.com/Sha-703/Chuch-App" target="_blank" rel="noopener">Code source</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 03</div>
-      <div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 04</span>
+          <span class="entry-domain">EdTech</span>
+          <span class="entry-status st-live">En ligne</span>
+        </div>
         <div class="entry-embed">
           <div class="embed-bar">
             <span>Aperçu en direct</span>
-            <a href="https://algo-flax.vercel.app" target="_blank" rel="noopener">Ouvrir ↗</a>
           </div>
           <div class="embed-frame">
             <iframe src="https://algo-flax.vercel.app" title="AlgoGuide — aperçu en direct" loading="lazy"></iframe>
             <button class="embed-gate" type="button">Cliquez pour interagir</button>
           </div>
         </div>
-        <h3 class="entry-title">AlgoGuide</h3>
-        <p class="entry-stack">Next.js 14 · TypeScript · SQLite</p>
-        <p class="entry-desc">Plateforme d'apprentissage de l'algorithmique pour élèves et enseignants : simulateur pas-à-pas avec visualisation des variables, missions gamifiées ancrées à Kinshasa et Lubumbashi, tableau de bord enseignant par classe.</p>
-        <span class="entry-status">Déployé</span>
-        <a class="entry-link" href="https://algo-flax.vercel.app" target="_blank" rel="noopener">algo-flax.vercel.app</a>
-      </div>
-    </div>
+        <div class="entry-body">
+          <h3 class="entry-title">AlgoGuide</h3>
+          <p class="entry-desc">Plateforme d'apprentissage de l'algorithmique pour élèves et enseignants : simulateur pas-à-pas avec visualisation des variables, missions gamifiées ancrées à Kinshasa et Lubumbashi, tableau de bord enseignant par classe.</p>
+          <ul class="entry-stack">
+            <li>Next.js 14</li>
+            <li>TypeScript</li>
+            <li>SQLite</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://algo-flax.vercel.app" target="_blank" rel="noopener">Voir le site ↗</a>
+            <a class="entry-cta is-ghost" href="https://github.com/Sha-703/AlgoGuide" target="_blank" rel="noopener">Code source</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 04</div>
-      <div>
-        <div class="entry-shot">Illustration — visuel à venir</div>
-        <h3 class="entry-title">DDM et FILS — COOPEC</h3>
-        <p class="entry-stack">Django · PostgreSQL · Electron / Neutralino · Capacitor (prévu)</p>
-        <p class="entry-desc">Système de gestion financière pour une coopérative d'épargne à Kimpese : application desktop pour gérants, application terrain pour les agents recouvreurs, synchronisation vers une base centrale.</p>
-        <span class="entry-status">Reconstruction — offline-first</span>
-      </div>
-    </div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 05</span>
+          <span class="entry-domain">Finance</span>
+          <span class="entry-status st-rebuild">Reconstruction</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">DDM</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">DDM et FILS — COOPEC</h3>
+          <p class="entry-desc">Système de gestion financière pour une coopérative d'épargne à Kimpese : application desktop pour gérants, application terrain pour les agents recouvreurs, synchronisation vers une base centrale.</p>
+          <ul class="entry-stack">
+            <li>Django</li>
+            <li>PostgreSQL</li>
+            <li>Electron</li>
+            <li>Neutralino</li>
+            <li>Capacitor</li>
+          </ul>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 05</div>
-      <div>
-        <div class="entry-shot">Illustration — visuel à venir</div>
-        <h3 class="entry-title">TUENDA</h3>
-        <p class="entry-stack">React Native / Expo · Next.js</p>
-        <p class="entry-desc">Plateforme de transport communautaire et étudiant à Mbanza-Ngungu : applications mobiles, portail web, tableau de bord admin avec indicateurs et visualisations.</p>
-        <span class="entry-status">En développement</span>
-      </div>
-    </div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 06</span>
+          <span class="entry-domain">Mobilité</span>
+          <span class="entry-status st-dev">Développement</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">TU</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">TUENDA</h3>
+          <p class="entry-desc">Plateforme de transport communautaire et étudiant à Mbanza-Ngungu : applications mobiles, portail web, tableau de bord administrateur avec indicateurs et visualisations.</p>
+          <ul class="entry-stack">
+            <li>React Native</li>
+            <li>Expo</li>
+            <li>Next.js</li>
+          </ul>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 06</div>
-      <div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 07</span>
+          <span class="entry-domain">Jeu sérieux</span>
+          <span class="entry-status st-dev">Développement</span>
+        </div>
         <div class="entry-embed">
           <div class="embed-bar">
             <span>Aperçu en direct</span>
-            <a href="https://ecoexplo.netlify.app/" target="_blank" rel="noopener">Ouvrir ↗</a>
           </div>
           <div class="embed-frame">
             <iframe src="https://ecoexplo.netlify.app/" title="Ecoexplorer — aperçu en direct" loading="lazy"></iframe>
             <button class="embed-gate" type="button">Cliquez pour interagir</button>
           </div>
         </div>
-        <h3 class="entry-title">Ecoexplorer</h3>
-        <p class="entry-stack">React · TypeScript · Babylon.js</p>
-        <p class="entry-desc">Jeu sérieux en 3D sur l'écologie pour élèves de 12 à 18 ans : terrain procédural, deux personnages jouables ancrés culturellement, cinq biomes africains simulés.</p>
-        <span class="entry-status">En développement</span>
-        <a class="entry-link" href="https://ecoexplo.netlify.app/" target="_blank" rel="noopener">ecoexplo.netlify.app</a>
-      </div>
-    </div>
+        <div class="entry-body">
+          <h3 class="entry-title">Ecoexplorer</h3>
+          <p class="entry-desc">Jeu sérieux en 3D sur l'écologie pour élèves de 12 à 18 ans : terrain procédural, deux personnages jouables ancrés culturellement, cinq biomes africains simulés.</p>
+          <ul class="entry-stack">
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Babylon.js</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://ecoexplo.netlify.app/" target="_blank" rel="noopener">Voir le site ↗</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 07</div>
-      <div>
-        <div class="entry-shot">Illustration — visuel à venir</div>
-        <h3 class="entry-title">Math Financière</h3>
-        <p class="entry-stack">Django REST · React</p>
-        <p class="entry-desc">Dispositif pédagogique numérique pour l'apprentissage des intérêts simples au secondaire : leçon conceptuelle, simulateur, quiz autocorrectifs, tableau de progression.</p>
-        <span class="entry-status">Déployé — Render</span>
-      </div>
-    </div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 08</span>
+          <span class="entry-domain">EdTech</span>
+          <span class="entry-status st-live">En ligne</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">MF</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">Math Financière</h3>
+          <p class="entry-desc">Dispositif pédagogique numérique pour l'apprentissage des intérêts simples au secondaire : leçon conceptuelle, simulateur, quiz autocorrectifs, tableau de progression.</p>
+          <ul class="entry-stack">
+            <li>Django REST</li>
+            <li>React</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://mathfin.vercel.app" target="_blank" rel="noopener">Voir le site ↗</a>
+            <a class="entry-cta is-ghost" href="https://github.com/Sha-703/mathfin" target="_blank" rel="noopener">Code source</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 08</div>
-      <div>
-        <div class="entry-shot">Illustration — visuel à venir</div>
-        <h3 class="entry-title">COACH — mémoire de master</h3>
-        <p class="entry-stack">Mistral 7B (LoRA) · Node.js / Express · PostgreSQL · React · React Native</p>
-        <p class="entry-desc">Outil d'assistance IA pour enseignants d'informatique : préparation de leçons, planification, évaluation. Modèle fine-tuné publié sur Hugging Face. Sujet de mémoire de master à l'ISP de Mbanza-Ngungu.</p>
-        <span class="entry-status">Recherche académique</span>
-      </div>
-    </div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 09</span>
+          <span class="entry-domain">IA · Recherche</span>
+          <span class="entry-status st-research">Recherche</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">CO</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">COACH — mémoire de master</h3>
+          <p class="entry-desc">Outil d'assistance IA pour enseignants d'informatique : préparation de leçons, planification, évaluation. Modèle fine-tuné publié sur Hugging Face ; sujet de mémoire de master à l'ISP de Mbanza-Ngungu.</p>
+          <ul class="entry-stack">
+            <li>Mistral 7B (LoRA)</li>
+            <li>Node.js</li>
+            <li>PostgreSQL</li>
+            <li>React</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://huggingface.co/Sha703/coach-ia-informatique" target="_blank" rel="noopener">Modèle Hugging Face ↗</a>
+          </div>
+        </div>
+      </article>
 
-    <div class="entry">
-      <div class="entry-num">N° 09</div>
-      <div>
-        <div class="entry-shot">Illustration — visuel à venir</div>
-        <h3 class="entry-title">KTAXE &amp; KONGO DIA BETO</h3>
-        <p class="entry-stack">Django · REST Framework · PostgreSQL · Tailwind · PWA</p>
-        <p class="entry-desc">Système de taxation des engins pour postes de contrôle : quittances numérotées et ticket payé imprimé avec code-barres Code128, barrière physique pilotée par scan (QR à la caméra ou scanner HID) avec anti double-scan, pilotage HTTP/GPIO et état en temps réel. Tableau de bord Chart.js, rôles taxateur / guichetier / chef de poste, rapports PDF, Excel et CSV par poste, taxateur, guichetier et barrière.</p>
-        <span class="entry-status">Déployé — Render</span>
-        <a class="entry-link" href="https://ktaxe-imjv.onrender.com" target="_blank" rel="noopener">ktaxe-imjv.onrender.com</a>
-        <a class="entry-link" href="https://github.com/Sha-703/ktaxe" target="_blank" rel="noopener">github.com/Sha-703/ktaxe</a>
-      </div>
-    </div>
+      <article class="entry">
+        <div class="entry-head">
+          <span class="entry-num">N° 10</span>
+          <span class="entry-domain">Fiscalité</span>
+          <span class="entry-status st-live">En ligne</span>
+        </div>
+        <div class="entry-shot">
+          <span class="entry-mark">KT</span>
+          <span class="entry-mark-note">Capture à venir</span>
+        </div>
+        <div class="entry-body">
+          <h3 class="entry-title">KTAXE</h3>
+          <p class="entry-desc">Système de taxation des engins pour postes de contrôle : quittances numérotées et ticket payé imprimé avec code-barres Code128, barrière physique pilotée par scan (QR à la caméra ou scanner HID) avec anti double-scan, pilotage HTTP/GPIO et état en temps réel. Tableau de bord Chart.js, rôles taxateur / guichetier / chef de poste, rapports PDF, Excel et CSV.</p>
+          <ul class="entry-stack">
+            <li>Django</li>
+            <li>REST Framework</li>
+            <li>PostgreSQL</li>
+            <li>Tailwind</li>
+            <li>PWA</li>
+          </ul>
+          <div class="entry-actions">
+            <a class="entry-cta" href="https://ktaxe-imjv.onrender.com" target="_blank" rel="noopener">Voir le site ↗</a>
+            <a class="entry-cta is-ghost" href="https://github.com/Sha-703/ktaxe" target="_blank" rel="noopener">Code source</a>
+          </div>
+        </div>
+      </article>
     </div>
 
   </div>
